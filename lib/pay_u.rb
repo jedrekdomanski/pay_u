@@ -1,6 +1,5 @@
-require "pay_u/version"
+require 'pay_u/version'
+require 'pay_u/configuration'
 
 module PayU
-  class Error < StandardError; end
-  # Your code goes here...
 end
