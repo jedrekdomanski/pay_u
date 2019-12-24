@@ -7,11 +7,21 @@ RSpec.describe PayU do
     before :each do
       PayU.configure do |config|
         config.base_url = 'www.some_test_url.com'
+        config.auth = {
+          client_id: '12345',
+          client_secret: 'secret_client'
+        }
       end
     end
 
     it 'returns a URL string' do
       expect(PayU.configuration.base_url).to eq('www.some_test_url.com')
+    end
+
+    it 'configures auth data' do
+      auth_builder = PayU::AuthConfigBuilder.call
+      expect(auth_builder.client_id).to eq('12345')
+      expect(auth_builder.client_secret).to eq('secret_client')
     end
   end
 
