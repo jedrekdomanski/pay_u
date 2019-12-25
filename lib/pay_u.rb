@@ -7,6 +7,7 @@ require 'pay_u/service'
 require 'pay_u/builders/auth_builder'
 require 'pay_u/builders/auth_config_builder'
 require 'pay_u/builders/connection_builder'
+require 'pay_u/requests/authorize'
 require 'ostruct'
 
 module PayU
