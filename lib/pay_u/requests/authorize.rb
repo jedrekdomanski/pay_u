@@ -14,11 +14,7 @@ module PayU
       def call
         auth_data = build_auth_string
         response = connection.post(auth_url, auth_data)
-        response.body
-      rescue Faraday::TimeoutError
-        message =
-          'There was a timeout authorizing the client'
-        raise PayU::Errors::TimeoutError, message
+        response
       end
 
       private

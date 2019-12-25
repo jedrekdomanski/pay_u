@@ -9,6 +9,10 @@ module PayU
         con.response :oj, content_type: /\bjson$/
         con.adapter Faraday.default_adapter
       end
+    rescue @connection::TimeoutError
+      message =
+        'There was a timeout getting payment methods info'
+      raise PayU::Errors::TimeoutError, message
     end
   end
 end
