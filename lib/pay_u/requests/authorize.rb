@@ -12,23 +12,16 @@ module PayU
       end
 
       def call
-        auth_data = build_auth_string
-        response = connection.post(auth_url, auth_data)
-        response
+        auth_data = @auth_builder.call
+
+        connection = @connection_builder.call
+        connection.post(auth_url, auth_data)
       end
 
       private
 
       def auth_url
         PayU.configuration.base_url + AUTHORIZE_URL
-      end
-
-      def build_auth_string
-        @auth_builder.call
-      end
-
-      def connection
-        @connection_builder.call
       end
     end
   end
