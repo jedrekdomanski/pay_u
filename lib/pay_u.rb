@@ -10,6 +10,7 @@ require 'pay_u/builders/connection_builder'
 require 'pay_u/requests/authorize'
 require 'pay_u/requests/payment_methods'
 require 'pay_u/requests/create_order'
+require 'pay_u/requests/get_order'
 require 'ostruct'
 require 'json'
 
