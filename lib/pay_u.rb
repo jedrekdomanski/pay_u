@@ -11,11 +11,13 @@ require 'pay_u/requests/authorize'
 require 'pay_u/requests/payment_methods'
 require 'pay_u/requests/create_order'
 require 'pay_u/requests/get_order'
+require 'pay_u/requests/cancel_order'
 require 'ostruct'
 require 'json'
 
 module PayU
   module Requests
+    PAYMENT_METHODS_URL = '/api/v2_1/paymethods'.freeze
     ORDERS_URL = '/api/v2_1/orders'.freeze
   end
 end
