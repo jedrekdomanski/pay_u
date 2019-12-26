@@ -9,7 +9,9 @@ require 'pay_u/builders/auth_config_builder'
 require 'pay_u/builders/connection_builder'
 require 'pay_u/requests/authorize'
 require 'pay_u/requests/payment_methods'
+require 'pay_u/requests/create_order'
 require 'ostruct'
+require 'json'
 
 module PayU
 end
@@ -20,4 +22,6 @@ PayU.configure do |config|
     client_id: ENV['CLIENT_ID'],
     client_secret: ENV['CLIENT_SECRET']
   }
+  config.merchant_pos_id = ENV['POS_ID']
+  config.notify_url = 'http://localhost:3000'
 end
