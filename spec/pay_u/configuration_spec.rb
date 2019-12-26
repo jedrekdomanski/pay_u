@@ -24,4 +24,22 @@ RSpec.describe PayU::Configuration do
       expect(config.auth[:client_secret]).to eq('very_secret')
     end
   end
+
+  describe '#merchant_pos_id' do
+    it 'can be set' do
+      config = described_class.new
+      config.merchant_pos_id = '1234'
+
+      expect(config.merchant_pos_id).to eq('1234')
+    end
+  end
+
+  describe '#notify_url' do
+    it 'can be set' do
+      config = described_class.new
+      config.merchant_pos_id = 'http://test/com'
+
+      expect(config.merchant_pos_id).to eq('http://test/com')
+    end
+  end
 end

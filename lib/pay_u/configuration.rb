@@ -1,6 +1,6 @@
 module PayU
   class Configuration
-    attr_accessor :base_url, :auth
+    attr_accessor :base_url, :auth, :merchant_pos_id, :notify_url
 
     def initialize
       @base_url = 'https://secure.payu.com'
