@@ -1,8 +1,6 @@
 module PayU
   module Requests
     class CreateOrder < Service
-      CREATE_ORDER_URL = '/api/v2_1/orders'.freeze
-
       def initialize(connection_builder: ConnectionBuilder)
         @connection_builder = connection_builder
       end
@@ -30,7 +28,7 @@ module PayU
       end
 
       def url
-        PayU.configuration.base_url + CREATE_ORDER_URL
+        PayU.configuration.base_url + Requests::ORDERS_URL
       end
     end
   end

@@ -15,14 +15,7 @@ require 'ostruct'
 require 'json'
 
 module PayU
-end
-
-PayU.configure do |config|
-  config.base_url = 'https://secure.snd.payu.com'
-  config.auth = {
-    client_id: ENV['CLIENT_ID'],
-    client_secret: ENV['CLIENT_SECRET']
-  }
-  config.merchant_pos_id = ENV['POS_ID']
-  config.notify_url = 'http://localhost:3000'
+  module Requests
+    ORDERS_URL = '/api/v2_1/orders'.freeze
+  end
 end
