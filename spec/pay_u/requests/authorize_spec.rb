@@ -1,13 +1,4 @@
 RSpec.describe PayU::Requests::Authorize, :unit do
-  let(:auth_hash) do
-    {
-      'access_token' => 'token',
-      'token_type' => 'bearer',
-      'expires_in' => 1234,
-      'grant_type' => 'client_credentials'
-    }
-  end
-  let(:response) { double(:response, body: auth_hash) }
   let(:connection) { double(:connection) }
   let(:connection_builder) { spy(:connection_builder) }
   let(:auth_builder) { spy(:auth_builder) }
@@ -27,7 +18,16 @@ RSpec.describe PayU::Requests::Authorize, :unit do
     )
   end
 
-  it 'returns authentication hash' do
+  it 'returns authentication hash if status is ok' do
+    auth_hash = {
+      'access_token' => 'token',
+      'token_type' => 'bearer',
+      'expires_in' => 1234,
+      'grant_type' => 'client_credentials'
+    }
+
+    response = double(:response, body: auth_hash)
+
     allow(auth_builder).to receive(:call).and_return(auth_string)
     allow(PayU)
       .to receive_message_chain('configuration.base_url')
@@ -39,8 +39,38 @@ RSpec.describe PayU::Requests::Authorize, :unit do
       .with(url, auth_string)
       .and_return(response)
     allow(response).to receive(:body).and_return(auth_hash)
+    allow(response).to receive(:status).and_return(200)
+    allow(response).to receive(:reason_phrase).and_return('OK')
 
     subject.call
     expect(auth_hash['access_token']).not_to be_empty
+    expect(response.status).to eq(200)
+  end
+
+  it 'raises Unauthorized if response status is 401' do
+    auth_hash = {
+      'error' => 'invalid_client',
+      'error_description' => "Can't find oauthClient with clientId = 12321"
+    }
+
+    response = double(:response, body: auth_hash)
+
+    allow(auth_builder).to receive(:call).and_return(auth_string)
+    allow(PayU)
+      .to receive_message_chain('configuration.base_url')
+      .and_return(base_url)
+    allow(base_url).to receive(:+).with(auth_url).and_return(url)
+    allow(connection_builder).to receive(:call).and_return(connection)
+    allow(connection)
+      .to receive(:post)
+      .with(url, auth_string)
+      .and_return(response)
+    allow(response).to receive(:body).and_return(auth_hash)
+    allow(response).to receive(:status).and_return(401)
+    allow(response)
+      .to receive(:reason_phrase)
+      .and_return("Unauthorized, Can't find oauthClient with clientId = 12321")
+
+    expect { subject.call }.to raise_error(PayU::Errors::Unauthorized)
   end
 end
