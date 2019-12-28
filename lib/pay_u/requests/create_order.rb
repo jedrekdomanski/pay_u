@@ -1,19 +1,29 @@
 module PayU
   module Requests
     class CreateOrder < Service
-      def initialize(connection_builder: ConnectionBuilder)
+      CreateOrderResponse = Struct.new(:status, :message, :body)
+
+      def initialize(
+        connection_builder: ConnectionBuilder,
+        authorize_request: Authorize
+      )
         @connection_builder = connection_builder
+        @authorize_request  = authorize_request
       end
 
-      def call(token:, params:)
+      def call(params:)
+        auth_response = @authorize_request.call
+
         order_params = create_order_data(params)
         connection = @connection_builder.call
 
-        connection.post(url) do |request|
-          request.headers['Authorization'] = "Bearer #{token}"
+        response = connection.post(url) do |request|
+          request.headers['Authorization'] = "Bearer #{auth_response.token}"
           request.headers['Content-Type'] = 'application/json'
           request.body = order_params
         end
+
+        build_response(response)
       end
 
       private
@@ -29,6 +39,14 @@ module PayU
 
       def url
         PayU.configuration.base_url + Requests::ORDERS_URL
+      end
+
+      def build_response(response)
+        CreateOrderResponse.new(
+          response.status,
+          response.reason_phrase,
+          response.body
+        )
       end
     end
   end
