@@ -11,4 +11,16 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.before(:each) do
+    PayU.configure do |conf|
+      conf.base_url = 'https://secure.snd.payu.com'
+      conf.auth = {
+        client_id: ENV['CLIENT_ID'],
+        client_secret: ENV['CLIENT_SECRET']
+      }
+      conf.merchant_pos_id = ENV['POS_ID']
+      conf.notify_url = 'http://localhost:3000'
+    end
+  end
 end
