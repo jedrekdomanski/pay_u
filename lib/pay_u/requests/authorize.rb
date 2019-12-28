@@ -29,7 +29,7 @@ module PayU
 
       def handle_response(response)
         message = "Unauthorized. #{response.body['error_description']}"
-        raise PayU::Errors::Unauthorized, message if response.status == 401
+        raise Errors::Unauthorized, message if response.status == 401
 
         AuthResponse.new(
           response.status,
