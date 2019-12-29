@@ -14,6 +14,7 @@ require 'pay_u/requests/payment_methods'
 require 'pay_u/requests/create_order'
 require 'pay_u/requests/get_order'
 require 'pay_u/requests/cancel_order'
+require 'pay_u/client'
 require 'ostruct'
 require 'json'
 
