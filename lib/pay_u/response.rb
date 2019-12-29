@@ -1,35 +1,64 @@
 module PayU
   module Response
     class OrderFound
-      attr_reader :order_id, :order_created_date, :notify_url,
-                  :customer_ip, :merchant_pos_id, :description,
-                  :currency_code, :total_amount, :status, :products
+      def initialize(response:)
+        @response = response
+        @order = response.body['orders'].first
+      end
 
-      def initialize(
-        order_id:, order_created_date:, notify_url:,
-        customer_ip:, merchant_pos_id:, description:,
-        currency_code:, total_amount:, status:, products:
-      )
-        @order_id = order_id
-        @order_created_date = order_created_date
-        @notify_url = notify_url
-        @customer_ip = customer_ip
-        @merchant_pos_id = merchant_pos_id
-        @description = description
-        @currency_code = currency_code
-        @total_amount = total_amount
-        @status = status
-        @products = products
+      def order_id
+        @order['orderId']
+      end
+
+      def order_created_at
+        @order['orderCreateDate']
+      end
+
+      def notify_url
+        @order['notifyUrl']
+      end
+
+      def customer_ip
+        @order['customerIp']
+      end
+
+      def merchant_pos_id
+        @order['merchantPosId']
+      end
+
+      def description
+        @order['description']
+      end
+
+      def currency_code
+        @order['currencyCode']
+      end
+
+      def total_amount
+        @order['totalAmount']
+      end
+
+      def status
+        @response.body['status']['statusDesc']
+      end
+
+      def products
+        @order['products']
       end
     end
 
     class OrderNotFound
-      attr_reader :status, :severity, :description
+      def initialize(response:)
+        @response = response
+        @data = response.body['status']
+      end
 
-      def initialize(status:, severity:, description:)
-        @status = status
-        @severity = severity
-        @description = description
+      def status
+        @data['statusCode']
+      end
+
+      def description
+        @data['statusDesc']
       end
     end
   end

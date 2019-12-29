@@ -37,30 +37,13 @@ module PayU
       end
 
       def build_order_found(response)
-        order = response.body['orders'].first
-
-        Response::OrderFound.new(
-          order_id: order['orderId'],
-          order_created_date: order['orderCreateDate'],
-          notify_url: order['notifyUrl'],
-          customer_ip: order['customerIp'],
-          merchant_pos_id: order['merchantPosId'],
-          description: order['description'],
-          currency_code: order['currencyCode'],
-          total_amount: order['totalAmount'],
-          status: response.body['status']['statusDesc'],
-          products: order['products']
-        )
+        Response::OrderFound.new(response: response)
       end
 
       def build_order_not_found(response)
         data = response.body['status']
 
-        Response::OrderNotFound.new(
-          status: data['statusCode'],
-          severity: data['severity'],
-          description: data['statusDesc']
-        )
+        Response::OrderNotFound.new(response: response)
       end
     end
   end

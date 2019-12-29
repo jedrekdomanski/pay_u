@@ -96,7 +96,6 @@ RSpec.describe PayU::Requests::GetOrder, :unit do
     result = subject.call(order_id: 'non_existent_order_id')
 
     expect(result.status).to eq('DATA_NOT_FOUND')
-    expect(result.severity).to eq('INFO')
     expect(result.description).to eq('Could not find data for given criteria.')
   end
 end
