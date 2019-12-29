@@ -12,6 +12,10 @@ module PayU
       def payment_methods
         Requests::PaymentMethods.call
       end
+
+      def cancel_order(id)
+        Requests::CancelOrder.call(order_id: id)
+      end
     end
   end
 end

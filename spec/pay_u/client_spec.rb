@@ -116,4 +116,31 @@ RSpec.describe PayU::Client, :unit do
     expect(result.body).to have_key('status')
     expect(result.status).to eq(200)
   end
+
+  it 'cancels an order' do
+    id = '123wd34f3fsd'
+
+    response = double(
+      :response,
+      body: {
+        'orderId' => '67RDG4GV4Z191228GUEST000P01',
+        'status' => {
+          'statusCode' => 'SUCCESS',
+          'statusDesc' => 'Request processing successful'
+        }
+      },
+      status: 200,
+      reason_phrase: 'OK'
+    )
+
+    allow(PayU::Requests::CancelOrder)
+      .to receive(:call)
+      .with(order_id: id)
+      .and_return(response)
+
+    result = described_class.cancel_order(id)
+
+    expect(result.status).to eq(200)
+    expect(result.body['status']['statusCode']).to eq('SUCCESS')
+  end
 end
