@@ -1,15 +1,20 @@
 module PayU
   module Requests
     class PaymentMethods < Service
-      def initialize(connection_builder: ConnectionBuilder)
+      def initialize(
+        connection_builder: ConnectionBuilder,
+        authorize_request: Authorize
+      )
         @connection_builder = connection_builder
+        @authorize_request  = authorize_request
       end
 
-      def call(token:)
+      def call
         faraday = @connection_builder.call
+        auth_response = @authorize_request.call
 
         response = faraday.get(paymethods_url) do |request|
-          request.headers['Authorization'] = "Bearer #{token}"
+          request.headers['Authorization'] = "Bearer #{auth_response.token}"
         end
         response
       end
