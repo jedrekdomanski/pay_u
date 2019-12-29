@@ -17,7 +17,7 @@ RSpec.describe PayU::Requests::CreateOrder, :unit do
     )
   end
 
-  it 'creates new order if authorized' do
+  it 'creates new order if valid params are passed' do
     order_params = {
       customerIp: '127.0.0.1',
       description: 'RTV market',
