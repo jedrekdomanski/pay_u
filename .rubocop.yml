@@ -1,0 +1,20 @@
+# Disable Cop that insist on documentation before each class
+Style/Documentation:
+  Enabled: false
+
+# Prefer single quotes unless you are using interpolation or need to escape a single-quote
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# We should aim at 80 chars per line but 100 is still acceptable
+Metrics/LineLength:
+  Max: 100
+
+# Disable Module and Block Length in test files
+Metrics/ModuleLength:
+  Exclude:
+    - "spec/**/*"
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
