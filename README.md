@@ -1,6 +1,6 @@
 # Ruby client for PayU REST API
 
-![Ruby](https://github.com/jedrekdomanski/pay_u/workflows/Ruby/badge.svg)
+[![Ruby](https://github.com/jedrekdomanski/pay_u/workflows/Ruby/badge.svg)](https://github.com/jedrekdomanski/pay_u/actions?query=workflow%3ARuby)
 
 ## Installation
 Add this line to your application's Gemfile:
