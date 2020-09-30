@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'faraday_middleware/parse_oj'
 
@@ -13,6 +15,7 @@ require 'pay_u/requests/authorize'
 require 'pay_u/requests/payment_methods'
 require 'pay_u/requests/create_order'
 require 'pay_u/requests/get_order'
+require 'pay_u/requests/update_order'
 require 'pay_u/requests/cancel_order'
 require 'pay_u/requests/get_shop_data'
 require 'pay_u/client'
@@ -21,8 +24,8 @@ require 'json'
 
 module PayU
   module Requests
-    PAYMENT_METHODS_URL = '/api/v2_1/paymethods'.freeze
-    ORDERS_URL = '/api/v2_1/orders'.freeze
-    SHOPS_URL = '/api/v2_1/shops'.freeze
+    PAYMENT_METHODS_URL = '/api/v2_1/paymethods'
+    ORDERS_URL = '/api/v2_1/orders'
+    SHOPS_URL = '/api/v2_1/shops'
   end
 end
