@@ -2,7 +2,6 @@
 
 require 'bundler/setup'
 require 'pay_u'
-require_relative 'vcr_spec'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
