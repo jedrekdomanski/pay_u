@@ -17,6 +17,21 @@ Or install it yourself as:
 
     $ gem install pay_u
 
+## Configuration
+Create `pay_u.rb` file and place the configuration blok there.
+
+```ruby
+PayU.configure do |config|
+  config.base_url = 'https://secure.snd.payu.com'
+  config.auth = {
+    client_id: ENV['CLIENT_ID'],
+    client_secret: ENV['CLIENT_SECRET']
+  }
+  config.merchant_pos_id = ENV['POS_ID']
+  config.notify_url = '...'
+end
+```
+
 ## Usage
 
 TODO: Write usage instructions here
