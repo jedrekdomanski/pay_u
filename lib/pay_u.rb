@@ -14,6 +14,7 @@ require 'pay_u/requests/payment_methods'
 require 'pay_u/requests/create_order'
 require 'pay_u/requests/get_order'
 require 'pay_u/requests/cancel_order'
+require 'pay_u/requests/get_shop_data'
 require 'pay_u/client'
 require 'ostruct'
 require 'json'
@@ -22,5 +23,6 @@ module PayU
   module Requests
     PAYMENT_METHODS_URL = '/api/v2_1/paymethods'.freeze
     ORDERS_URL = '/api/v2_1/orders'.freeze
+    SHOPS_URL = '/api/v2_1/shops'.freeze
   end
 end
