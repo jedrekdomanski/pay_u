@@ -16,7 +16,7 @@ module PayU
         response = faraday.get(paymethods_url) do |request|
           request.headers['Authorization'] = "Bearer #{auth_response.token}"
         end
-        response
+        response.body
       end
 
       private
