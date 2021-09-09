@@ -21,6 +21,8 @@ Or install it yourself as:
 Create `pay_u.rb` file and place the configuration blok there.
 
 ```ruby
+require 'pay_u'
+
 PayU.configure do |config|
   config.base_url = 'https://secure.snd.payu.com'
   config.auth = {
